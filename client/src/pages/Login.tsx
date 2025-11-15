@@ -1,0 +1,127 @@
+import { useState } from "react";
+import { useLocation } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
+import { LogIn, ArrowLeft } from "lucide-react";
+import Navigation from "@/components/Navigation";
+
+export default function Login() {
+  const [, setLocation] = useLocation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !password) {
+      toast.error("Veuillez remplir tous les champs");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Pour la démo, on simule une authentification réussie
+      // En production, vous devriez appeler une procédure tRPC
+      if (email === "admin@rommelaiere-renov.com" && password === "admin123") {
+        // Rediriger immédiatement vers le dashboard admin
+        setLocation("/admin");
+        toast.success("Connexion réussie !");
+      } else {
+        setIsLoading(false);
+        toast.error("Email ou mot de passe incorrect");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      toast.error("Erreur lors de la connexion");
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Navigation />
+
+      <div className="container py-12 flex items-center justify-center">
+        <Card className="w-full max-w-md p-8">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-primary rounded-lg mb-4">
+              <LogIn size={24} className="text-white" />
+            </div>
+            <h1 className="text-2xl font-bold text-gray-900">Connexion Admin</h1>
+            <p className="text-gray-600 mt-2">
+              Accédez à votre tableau de bord d'administration
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@rommelaere-renov.com"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                disabled={isLoading}
+              />
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Mot de passe
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                disabled={isLoading}
+              />
+            </div>
+
+            {/* Submit Button */}
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-primary text-white hover:bg-primary/90 py-2 rounded-lg font-medium"
+            >
+              {isLoading ? "Connexion en cours..." : "Se connecter"}
+            </Button>
+          </form>
+
+          {/* Demo Credentials */}
+          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-sm font-medium text-blue-900 mb-2">
+              🔑 Identifiants de démonstration :
+            </p>
+            <p className="text-sm text-blue-800">
+              Email : <span className="font-mono">admin@rommelaiere-renov.com</span>
+            </p>
+            <p className="text-sm text-blue-800">
+              Mot de passe : <span className="font-mono">admin123</span>
+            </p>
+          </div>
+
+          {/* Back Link */}
+          <div className="mt-6 text-center">
+            <button
+              onClick={() => setLocation("/")}
+              className="inline-flex items-center gap-2 text-primary hover:underline"
+            >
+              <ArrowLeft size={16} />
+              Retour à l'accueil
+            </button>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
