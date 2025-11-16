@@ -26,7 +26,7 @@ export default function Login() {
     try {
       // Pour la démo, on simule une authentification réussie
       // En production, vous devriez appeler une procédure tRPC
-      if (email === "admin@rommelaiere-renov.com" && password === "admin123") {
+      if (email === "admin@rommelaere-renov.be" && password === "R0mmel@er&20") {
         // Rediriger immédiatement vers le dashboard admin
         setLocation("/admin");
         toast.success("Connexion réussie !");
