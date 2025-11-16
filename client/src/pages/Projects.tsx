@@ -2,30 +2,21 @@ import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import ImageCarousel from "@/components/ImageCarousel";
 import { trpc } from "@/lib/trpc";
-import SeoHelmet from "@/components/SeoHelmet";
-
+import SeoHelmet from "@/components/SeoHelmet"; // Importation du composant SeoHelmet
 
 export default function Projects() {
+  // L'API getProjects retourne maintenant les projets AVEC leurs images
   const { data: projects, isLoading } = trpc.content.getProjects.useQuery();
-  const [projectImagesMap, setProjectImagesMap] = useState<{ [key: number]: any[] }>({});
 
-  // Charger les images pour chaque projet
-  useEffect(() => {
-    if (projects) {
-      projects.forEach((project) => {
-        const { data: images } = trpc.content.getProjectImages.useQuery(project.id);
-        if (images) {
-          setProjectImagesMap((prev) => ({
-            ...prev,
-            [project.id]: images,
-          }));
-        }
-      });
-    }
-  }, [projects]);
+  // Le code de chargement des images par useEffect est supprimé car il est inefficace et incorrect.
+  // Les images sont maintenant incluses dans l'objet 'project' retourné par l'API.
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <SeoHelmet
+        title="Spécialiste Aménagement de Combles et Rénovation"
+        description="Entrepreneur spécialisé en aménagement de combles, Gyproc, enduit et retouche sur plafonnage. Demandez votre devis gratuit."
+      />
       <Navigation />
 
       {/* Header */}
@@ -48,18 +39,20 @@ export default function Projects() {
           ) : projects && projects.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-12">
               {projects.map((project) => {
-                const images = projectImagesMap[project.id]?.map((img: any) => img.imageUrl) || [];
+                // Utilisation directe du tableau d'images fourni par l'API
+                // Si l'API ne retourne pas d'images, on utilise l'imageUrl principale si elle existe.
+                const images = project.images || [];
                 const displayImages = images.length > 0 ? images : (project.imageUrl ? [project.imageUrl] : []);
 
                 return (
                   <div key={project.id} className="bg-white border border-border rounded-lg overflow-hidden hover:shadow-lg transition">
                     {displayImages.length > 0 ? (
-                    <ImageCarousel images={displayImages} title={project.title} />
-                  ) : (
-                    <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
-                      <p className="text-gray-500">Pas d'image disponible</p>
-                    </div>
-                  )}
+                      <ImageCarousel images={displayImages} title={project.title} />
+                    ) : (
+                      <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
+                        <p className="text-gray-500">Pas d'image disponible</p>
+                      </div>
+                    )}
                     <div className="p-6">
                       <h3 className="text-xl font-bold mb-3 text-primary">{project.title}</h3>
                       <p className="text-foreground/80">{project.description}</p>

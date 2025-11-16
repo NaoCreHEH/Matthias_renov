@@ -1,5 +1,5 @@
 import { drizzle } from "drizzle-orm/mysql2";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm"; // Ajout de desc
 import { InsertUser, users, services, projects, contactInfo, messages, projectImages, InsertService, InsertProject, InsertContactInfo, InsertMessage, InsertProjectImage } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -9,6 +9,7 @@ let _db: ReturnType<typeof drizzle> | null = null;
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
+      // @ts-ignore
       _db = drizzle(process.env.DATABASE_URL);
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
@@ -122,10 +123,11 @@ export async function deleteService(id: number) {
   return db.delete(services).where(eq(services.id, id));
 }
 
+// Fonction getProjects corrigée pour inclure les images
 export async function getProjects() {
   const db = await getDb();
   if (!db) return [];
-  
+
   const projectsWithImages = await db
     .select({
       id: projects.id,
@@ -135,28 +137,42 @@ export async function getProjects() {
       order: projects.order,
       createdAt: projects.createdAt,
       updatedAt: projects.updatedAt,
-      images: projectImages.imageUrl,
+      // Sélectionne l'URL de l'image du projet
+      image: projectImages.imageUrl,
     })
     .from(projects)
+    // Jointure avec la table projectImages
     .leftJoin(projectImages, eq(projects.id, projectImages.projectId))
-    .orderBy(desc(projects.order));
+    // Tri par ordre du projet, puis par ordre de l'image
+    .orderBy(desc(projects.order), projectImages.order);
 
+  // Regrouper les images par projet
   const result = projectsWithImages.reduce<any[]>((acc, row) => {
     let project = acc.find((p) => p.id === row.id);
+    
+    // Si le projet n'existe pas encore dans l'accumulateur
     if (!project) {
       project = {
-        ...row,
-        images: row.images ? [row.images] : [],
+        id: row.id,
+        title: row.title,
+        description: row.description,
+        imageUrl: row.imageUrl,
+        order: row.order,
+        createdAt: row.createdAt,
+        updatedAt: row.updatedAt,
+        // Initialise le tableau d'images
+        images: row.image ? [row.image] : [],
       };
       acc.push(project);
-    } else if (row.images) {
-      project.images.push(row.images);
+    } 
+    // Si le projet existe et qu'il y a une image
+    else if (row.image && !project.images.includes(row.image)) {
+      project.images.push(row.image);
     }
     return acc;
   }, []);
 
   return result;
-  //return db.select().from(projects).orderBy(projects.order);
 }
 
 export async function getProjectById(id: number) {
