@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import ImageCarousel from "@/components/ImageCarousel";
 import { trpc } from "@/lib/trpc";
-import SeoHelmet from "@/components/SeoHelmet"; // Importation du composant SeoHelmet
+
 
 export default function Projects() {
   // L'API getProjects retourne maintenant les projets AVEC leurs images
@@ -13,10 +13,7 @@ export default function Projects() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <SeoHelmet
-        title="Spécialiste Aménagement de Combles et Rénovation"
-        description="Entrepreneur spécialisé en aménagement de combles, Gyproc, enduit et retouche sur plafonnage. Demandez votre devis gratuit."
-      />
+      {/* Le composant SeoHelmet a été retiré d'ici */}
       <Navigation />
 
       {/* Header */}
@@ -84,5 +81,5 @@ export default function Projects() {
         </div>
       </footer>
     </div>
-  );
+   );
 }
