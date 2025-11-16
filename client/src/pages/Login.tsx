@@ -97,18 +97,7 @@ export default function Login() {
             </Button>
           </form>
 
-          {/* Demo Credentials */}
-          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm font-medium text-blue-900 mb-2">
-              🔑 Identifiants de démonstration :
-            </p>
-            <p className="text-sm text-blue-800">
-              Email : <span className="font-mono">admin@rommelaiere-renov.com</span>
-            </p>
-            <p className="text-sm text-blue-800">
-              Mot de passe : <span className="font-mono">admin123</span>
-            </p>
-          </div>
+    
 
           {/* Back Link */}
           <div className="mt-6 text-center">
