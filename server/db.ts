@@ -125,7 +125,38 @@ export async function deleteService(id: number) {
 export async function getProjects() {
   const db = await getDb();
   if (!db) return [];
-  return db.select().from(projects).orderBy(projects.order);
+  
+  const projectsWithImages = await db
+    .select({
+      id: projects.id,
+      title: projects.title,
+      description: projects.description,
+      imageUrl: projects.imageUrl,
+      order: projects.order,
+      createdAt: projects.createdAt,
+      updatedAt: projects.updatedAt,
+      images: projectImages.imageUrl,
+    })
+    .from(projects)
+    .leftJoin(projectImages, eq(projects.id, projectImages.projectId))
+    .orderBy(desc(projects.order));
+
+  const result = projectsWithImages.reduce<any[]>((acc, row) => {
+    let project = acc.find((p) => p.id === row.id);
+    if (!project) {
+      project = {
+        ...row,
+        images: row.images ? [row.images] : [],
+      };
+      acc.push(project);
+    } else if (row.images) {
+      project.images.push(row.images);
+    }
+    return acc;
+  }, []);
+
+  return result;
+  //return db.select().from(projects).orderBy(projects.order);
 }
 
 export async function getProjectById(id: number) {
