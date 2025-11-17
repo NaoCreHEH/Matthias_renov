@@ -220,10 +220,33 @@ export async function updateContactInfo(data: Partial<InsertContactInfo>) {
 }
 
 // Messages (Contact Form)
+import { notifyOwner } from "./_core/notification"; // Import de la fonction de notification
+
 export async function createMessage(data: InsertMessage) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  return db.insert(messages).values(data);
+
+  // 1. Enregistrement du message en base de données
+  const result = await db.insert(messages).values(data);
+
+  // 2. Envoi d'une notification (qui peut être un email) au propriétaire
+  const notificationTitle = `Nouveau message de contact: ${data.subject || "Sans sujet"}`;
+  const notificationContent = `
+    Nom: ${data.name}
+    Email: ${data.email}
+    Téléphone: ${data.phone || "Non fourni"}
+
+    Message:
+    ${data.message}
+  `;
+
+  // L'envoi de la notification est asynchrone et ne bloque pas la réponse du formulaire
+  notifyOwner({
+    title: notificationTitle,
+    content: notificationContent,
+  }).catch(console.error); // Gérer l'erreur de notification sans faire échouer la requête
+
+  return result;
 }
 
 export async function getMessages() {

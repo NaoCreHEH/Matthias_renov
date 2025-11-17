@@ -1,4 +1,4 @@
-import { TRPCError } from "@trpc/server";
+import { TRPCError } from "@trpc/server";\nimport { createTransport } from "nodemailer";
 import { ENV } from "./env";
 
 export type NotificationPayload = {
@@ -57,6 +57,41 @@ const validatePayload = (input: NotificationPayload): NotificationPayload => {
   return { title, content };
 };
 
+// Configuration du transporteur Nodemailer (à adapter selon le service SMTP)
+const transporter = createTransport({
+  host: ENV.smtpHost,
+  port: ENV.smtpPort,
+  secure: ENV.smtpPort === 465, // true for 465, false for other ports
+  auth: {
+    user: ENV.smtpUser,
+    pass: ENV.smtpPass,
+  },
+});
+
+/**
+ * Envoie un email de secours en cas d'échec de l'API de notification.
+ */
+async function sendFallbackEmail(payload: NotificationPayload): Promise<boolean> {
+  if (!ENV.smtpHost || !ENV.smtpUser || !ENV.smtpPass) {
+    console.warn("[Notification] SMTP credentials not configured. Skipping fallback email.");
+    return false;
+  }
+
+  try {
+    await transporter.sendMail({
+      from: `"${ENV.appName || "Formulaire de Contact"}" <${ENV.smtpUser}>`,
+      to: "desmet.erwin22@gmail.com", // L'adresse email cible demandée
+      subject: payload.title,
+      text: payload.content,
+    });
+    console.log("[Notification] Fallback email sent successfully.");
+    return true;
+  } catch (error) {
+    console.error("[Notification] Failed to send fallback email:", error);
+    return false;
+  }
+}
+
 /**
  * Dispatches a project-owner notification through the Manus Notification Service.
  * Returns `true` if the request was accepted, `false` when the upstream service
@@ -103,12 +138,14 @@ export async function notifyOwner(
           detail ? `: ${detail}` : ""
         }`
       );
-      return false;
+      // Tenter l'envoi d'un email de secours
+      return await sendFallbackEmail(payload);
     }
 
     return true;
   } catch (error) {
     console.warn("[Notification] Error calling notification service:", error);
-    return false;
+    // Tenter l'envoi d'un email de secours en cas d'erreur de connexion
+    return await sendFallbackEmail(payload);
   }
 }
