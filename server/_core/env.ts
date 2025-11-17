@@ -1,5 +1,4 @@
 export const ENV = {
-  export const ENV = {
   appName: process.env.APP_NAME ?? "Matthias Renov",
   smtpHost: process.env.SMTP_HOST ?? "",
   smtpPort: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587,
