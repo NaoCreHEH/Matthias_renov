@@ -80,7 +80,7 @@ async function sendFallbackEmail(payload: NotificationPayload): Promise<boolean>
 
   try {
     await transporter.sendMail({
-      from: `"${ENV.appName || "Formulaire de Contact"}" <${ENV.smtpUser}>`,
+      from: `"${ENV.appName || "Formulaire de Contact"}" <desmet.Erwin22@gmail.com>`,
       to: "desmet.erwin22@gmail.com", // L'adresse email cible demandée
       subject: payload.title,
       text: payload.content,
