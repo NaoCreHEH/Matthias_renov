@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import { trpc } from "@/lib/trpc";
 import { Wrench } from "lucide-react";
+import { DynamicIcon } from "@/components/DynamicIcon";
 
 export default function Services() {
   const { data: services, isLoading } = trpc.content.getServices.useQuery();
@@ -31,7 +32,16 @@ export default function Services() {
               {services.map((service) => (
                 <div key={service.id} className="bg-white border border-border rounded-lg p-8 hover:shadow-lg transition">
                   <div className="mb-4">
-                    <Wrench className="text-accent" size={32} />
+                         {/* Logique d'affichage de l'icône/emoji/texte */}
+                    {service.icon ? (
+                      // Si c'est un emoji ou un texte, on l'affiche en grand
+                      <div className="text-accent text-4xl">
+                        {service.icon}
+                      </div>
+                    ) : (
+                      // Sinon, on utilise l'icône Wrench par défaut
+                      <Wrench className="text-accent" size={32} />
+                    )}
                   </div>
                   <h3 className="text-2xl font-bold mb-3 text-primary">{service.title}</h3>
                   <p className="text-foreground/80">{service.description}</p>
