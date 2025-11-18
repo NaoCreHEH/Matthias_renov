@@ -36,7 +36,7 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     };
     const updateSet: Record<string, unknown> = {};
 
-    const textFields = ["name", "email", "loginMethod", "passwordHash"] as const;
+    const textFields = ["name", "email", "loginMethod"] as const;
     type TextField = (typeof textFields)[number];
 
     const assignNullable = (field: TextField) => {
@@ -76,18 +76,6 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     console.error("[Database] Failed to upsert user:", error);
     throw error;
   }
-}
-
-export async function getUserByEmail(email: string) {
-  const db = await getDb();
-  if (!db) {
-    console.warn("[Database] Cannot get user: database not available");
-    return undefined;
-  }
-
-  const result = await db.select().from(users).where(eq(users.email, email)).limit(1);
-
-  return result.length > 0 ? result[0] : undefined;
 }
 
 export async function getUserByOpenId(openId: string) {
@@ -232,7 +220,7 @@ export async function updateContactInfo(data: Partial<InsertContactInfo>) {
 }
 
 // Messages (Contact Form)
-import { notifyOwner } from "./_core/notification"; // Import de la fonction de notification
+import { sendFallbackEmail  } from "./_core/notification"; // Import de la fonction de notification
 
 export async function createMessage(data: InsertMessage) {
   const db = await getDb();
@@ -253,10 +241,10 @@ export async function createMessage(data: InsertMessage) {
   `;
 
   // L'envoi de la notification est asynchrone et ne bloque pas la réponse du formulaire
-  notifyOwner({
+  sendFallbackEmail({ // <-- APPEL DIRECT À sendFallbackEmail
     title: notificationTitle,
     content: notificationContent,
-  }).catch(console.error); // Gérer l'erreur de notification sans faire échouer la requête
+  }).catch(console.error); 
 
   return result;
 }
