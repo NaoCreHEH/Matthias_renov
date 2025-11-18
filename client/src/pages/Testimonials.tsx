@@ -124,17 +124,17 @@ export default function Testimonials() {
 
                   {/* Quote */}
                   <p className="text-foreground/80 mb-6 italic leading-relaxed">
-                    "{testimonial.content}"
+                    "{testimonial.testimonial}"
                   </p>
 
                   {/* Client Info */}
                   <div className="border-t pt-4">
                     <h3 className="font-bold text-primary mb-1">
-                      {testimonial.clientName}
+                      {testimonial.name}
                     </h3>
-                    {testimonial.clientRole && (
+                    {testimonial.title && (
                       <p className="text-sm text-foreground/60 mb-1">
-                        {testimonial.clientRole}
+                        {testimonial.title}
                       </p>
                     )}
                     {testimonial.projectType && (
