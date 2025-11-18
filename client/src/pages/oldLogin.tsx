@@ -24,19 +24,9 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      // Utiliser une procédure tRPC pour l'authentification
-      // Note: Cette procédure n'existe pas encore dans routers.ts, mais elle est nécessaire pour une connexion réelle.
-      // Je vais simuler l'appel pour l'instant, mais il faudra l'implémenter côté serveur.
-      // Si l'authentification est gérée par un service externe (comme Manus OAuth), cette logique doit être adaptée.
-
-      // Pour l'instant, je vais conserver la simulation pour ne pas casser le build,
-      // mais je vais ajouter un commentaire pour indiquer qu'une procédure tRPC est nécessaire.
-      
-      // TODO: Remplacer par un appel tRPC réel (ex: trpc.auth.login.mutate({ email, password }))
+      // Pour la démo, on simule une authentification réussie
+      // En production, vous devriez appeler une procédure tRPC
       if (email === "admin@rommelaere-renov.be" && password === "R0mmel@er&20") {
-        // Simulation de la création d'un cookie de session côté serveur
-        // En réalité, l'appel tRPC devrait déclencher la création du cookie.
-        
         // Rediriger immédiatement vers le dashboard admin
         setLocation("/admin");
         toast.success("Connexion réussie !");
