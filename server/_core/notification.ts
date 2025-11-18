@@ -25,7 +25,7 @@ export async function notifyOwner(
 
     await transporter.sendMail({
       from: `"Matthias Renov" <${ENV.smtpUser}>`,
-      to: "desmet.erwin22@gmail.com",
+      to: "rommelaere.renov@gmail.com",
       subject: payload.title,
       text: payload.content,
     });
