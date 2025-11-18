@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 import { ENV } from "../env";
 
 const ADMIN_EMAIL = "admin@rommelaere-renov.be";
-const ADMIN_DEFAULT_PASSWORD = "R0mmel@er&20"; // tu peux le changer si tu veux
+const ADMIN_DEFAULT_PASSWORD = "R0mmel@er&20"; // tu peux changer ça si tu veux
 const SESSION_EXPIRES_IN_DAYS = 7;
 
 // Création d'un token de session JWT
@@ -64,22 +64,25 @@ export const authRouter = router({
           name: "Admin Local",
           role: "admin",
           loginMethod: "local",
-          // ⚠️ Ici on suppose que la colonne DB s'appelle bien "password"
-          password: hashedPassword,
+          // ⚠️ on reste aligné avec ton code existant
+          passwordHash: hashedPassword,
         });
 
         user = await db.getUserByEmail(input.email);
       }
 
       // 3. Vérification de l'existence de l'utilisateur et du mot de passe
-      if (!user || !user.password) {
+      if (!user || !user.passwordHash) {
         throw new TRPCError({
           code: "UNAUTHORIZED",
           message: "Email ou mot de passe incorrect",
         });
       }
 
-      const passwordMatch = await bcrypt.compare(input.password, user.password);
+      const passwordMatch = await bcrypt.compare(
+        input.password,
+        user.passwordHash
+      );
 
       if (!passwordMatch) {
         throw new TRPCError({
@@ -110,6 +113,8 @@ export const authRouter = router({
   logout: publicProcedure.mutation(({ ctx }) => {
     const cookieOptions = getSessionCookieOptions(ctx.req);
     ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
-    return { success: true } as const;
+    return {
+      success: true,
+    } as const;
   }),
 });
