@@ -100,31 +100,17 @@ export const appRouter = router({
     deleteMessage: adminProcedure.input(z.number()).mutation(({ input }) => db.deleteMessage(input)),
   }),
 
-  // Routeur Testimonials
-  testimonials: router({
-    create: publicProcedure
-      .input(z.object({ name: z.string().min(1), title: z.string().optional(), projectType: z.string().optional(), rating: z.number().min(1).max(5), testimonial: z.string().min(10) }))
-      .mutation(({ input }) => db.createTestimonial({ ...input, status: "pending" })),
-    list: publicProcedure.query(() => db.getTestimonials()),
-    getById: publicProcedure.input(z.number()).query(({ input }) => db.getTestimonialById(input)),
-    getPending: adminProcedure.query(() => db.getPendingTestimonials()),
-    approve: adminProcedure.input(z.number()).mutation(({ input }) => db.approveTestimonial(input)),
-    reject: adminProcedure.input(z.number()).mutation(({ input }) => db.rejectTestimonial(input)),
-    delete: adminProcedure.input(z.number()).mutation(({ input }) => db.deleteTestimonial(input)),
-  }),
-
   // Routeur Admin
   admin: router({
     getStats: adminProcedure.query(async () => {
       try {
         const servicesCount = await db.getServices().then((s) => s.length);
         const projectsCount = await db.getProjects().then((p) => p.length);
-        const testimonialsCount = await db.getPendingTestimonials().then((t) => t.length);
         
         return {
           servicesCount,
           projectsCount,
-          testimonialsCount,
+          testimonialsCount: 0,
           usersCount: 0,
         };
       } catch (error) {

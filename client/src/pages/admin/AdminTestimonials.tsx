@@ -1,60 +1,106 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
+import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Plus, Edit2, Trash2, Star } from "lucide-react";
+import { ArrowLeft, Plus, Edit2, Trash2, Star, Check, X } from "lucide-react";
 import { toast } from "sonner";
+
+interface TestimonialForm {
+  name: string;
+  title?: string;
+  projectType?: string;
+  rating: number;
+  testimonial: string;
+}
 
 export default function AdminTestimonials() {
   const [, setLocation] = useLocation();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { data: pendingTestimonials = [], isLoading, refetch } = trpc.testimonials?.getPending?.useQuery?.() ?? { data: [], isLoading: false, refetch: () => {} };
+  const approveMutation = trpc.testimonials?.approve?.useMutation?.();
+  const rejectMutation = trpc.testimonials?.reject?.useMutation?.();
+  const deleteMutation = trpc.testimonials?.delete?.useMutation?.();
+
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [formData, setFormData] = useState({
-    clientName: "",
-    content: "",
-    rating: 5,
+  const [formData, setFormData] = useState<TestimonialForm>({
+    name: "",
+    title: "",
     projectType: "",
-    published: true,
+    rating: 5,
+    testimonial: "",
   });
 
-  // Vérifier l'authentification
-  useEffect(() => {
-    setIsAdmin(true); // Placeholder - à connecter avec l'authentification réelle
-  }, []);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-  const handleAdd = async () => {
-    if (!formData.clientName || !formData.content) {
-      toast.error("Le nom et le contenu sont requis");
-      return;
-    }
+  const handleRatingChange = (rating: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      rating,
+    }));
+  };
+
+  const handleApprove = async (id: number) => {
     try {
-      toast.success("Témoignage ajouté avec succès");
-      setFormData({
-        clientName: "",
-        content: "",
-        rating: 5,
-        projectType: "",
-        published: true,
-      });
-      setIsAdding(false);
+      if (!approveMutation) {
+        toast.error("Le service n'est pas disponible");
+        return;
+      }
+      await approveMutation.mutateAsync(id);
+      toast.success("Témoignage approuvé avec succès");
+      refetch?.();
     } catch (error) {
-      toast.error("Erreur lors de l'ajout du témoignage");
+      toast.error("Erreur lors de l'approbation du témoignage");
+      console.error(error);
     }
   };
 
-  const handleDelete = (id: number) => {
+  const handleReject = async (id: number) => {
+    try {
+      if (!rejectMutation) {
+        toast.error("Le service n'est pas disponible");
+        return;
+      }
+      await rejectMutation.mutateAsync(id);
+      toast.success("Témoignage rejeté");
+      refetch?.();
+    } catch (error) {
+      toast.error("Erreur lors du rejet du témoignage");
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
     if (!confirm("Êtes-vous sûr de vouloir supprimer ce témoignage ?")) return;
     try {
+      if (!deleteMutation) {
+        toast.error("Le service n'est pas disponible");
+        return;
+      }
+      await deleteMutation.mutateAsync(id);
       toast.success("Témoignage supprimé avec succès");
+      refetch?.();
     } catch (error) {
       toast.error("Erreur lors de la suppression du témoignage");
+      console.error(error);
     }
   };
 
-  if (!isAdmin) {
-    return null;
-  }
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }).map((_, i) => (
+      <Star
+        key={i}
+        size={16}
+        className={i < rating ? "fill-accent text-accent" : "text-gray-300"}
+      />
+    ));
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -75,150 +121,94 @@ export default function AdminTestimonials() {
                 Gestion des Témoignages
               </h1>
               <p className="text-gray-600 mt-1">
-                Gérez les témoignages clients
+                Approuvez ou rejetez les témoignages clients en attente
               </p>
             </div>
           </div>
-
-          {!isAdding && !editingId && (
-            <Button
-              onClick={() => setIsAdding(true)}
-              className="flex items-center gap-2 bg-primary text-white hover:bg-primary/90"
-            >
-              <Plus size={18} />
-              Ajouter un Témoignage
-            </Button>
-          )}
         </div>
       </div>
 
       {/* Main Content */}
       <div className="container py-8">
-        {/* Add/Edit Form */}
-        {(isAdding || editingId) && (
-          <Card className="p-6 mb-8">
-            <h3 className="text-lg font-bold mb-4">
-              {editingId ? "Modifier le Témoignage" : "Ajouter un Témoignage"}
-            </h3>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  Nom du client
-                </label>
-                <input
-                  type="text"
-                  value={formData.clientName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, clientName: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Nom du client"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  Témoignage
-                </label>
-                <textarea
-                  value={formData.content}
-                  onChange={(e) =>
-                    setFormData({ ...formData, content: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                  rows={4}
-                  placeholder="Contenu du témoignage"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">
-                    Type de projet
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.projectType}
-                    onChange={(e) =>
-                      setFormData({ ...formData, projectType: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Ex: Aménagement de combles"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-2">
-                    Note (1-5)
-                  </label>
-                  <select
-                    value={formData.rating}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        rating: parseInt(e.target.value),
-                      })
-                    }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  >
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <option key={i} value={i}>
-                        {i} étoile{i > 1 ? "s" : ""}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="published"
-                  checked={formData.published}
-                  onChange={(e) =>
-                    setFormData({ ...formData, published: e.target.checked })
-                  }
-                  className="rounded"
-                />
-                <label htmlFor="published" className="text-sm font-medium">
-                  Publier ce témoignage
-                </label>
-              </div>
-
-              <div className="flex gap-2">
-                <Button
-                  onClick={handleAdd}
-                  className="bg-primary text-white hover:bg-primary/90"
-                >
-                  {editingId ? "Mettre à jour" : "Ajouter"}
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setIsAdding(false);
-                    setEditingId(null);
-                    setFormData({
-                      clientName: "",
-                      content: "",
-                      rating: 5,
-                      projectType: "",
-                      published: true,
-                    });
-                  }}
-                >
-                  Annuler
-                </Button>
-              </div>
-            </div>
-          </Card>
+        {/* Loading State */}
+        {isLoading && (
+          <div className="text-center py-12">
+            <p className="text-foreground/60">Chargement des témoignages en attente...</p>
+          </div>
         )}
 
-        {/* Testimonials List */}
-        <div className="space-y-4">
-          <p className="text-foreground/60 text-center py-8">
-            Aucun témoignage pour le moment
-          </p>
-        </div>
+        {/* Pending Testimonials List */}
+        {!isLoading && pendingTestimonials && pendingTestimonials.length > 0 ? (
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold mb-6">
+              Témoignages en Attente ({pendingTestimonials.length})
+            </h2>
+            {pendingTestimonials.map((testimonial: any) => (
+              <Card key={testimonial.id} className="p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-primary">
+                      {testimonial.name}
+                    </h3>
+                    {testimonial.title && (
+                      <p className="text-sm text-foreground/60">
+                        {testimonial.title}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex gap-1">
+                    {renderStars(testimonial.rating)}
+                  </div>
+                </div>
+
+                {testimonial.projectType && (
+                  <p className="text-sm text-accent font-medium mb-3">
+                    Projet : {testimonial.projectType}
+                  </p>
+                )}
+
+                <p className="text-foreground/80 mb-4 italic leading-relaxed">
+                  "{testimonial.testimonial}"
+                </p>
+
+                <p className="text-xs text-foreground/50 mb-4">
+                  Soumis le {new Date(testimonial.createdAt).toLocaleDateString('fr-FR')}
+                </p>
+
+                <div className="flex gap-2">
+                  <Button
+                    onClick={() => handleApprove(testimonial.id)}
+                    className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    <Check size={16} />
+                    Approuver
+                  </Button>
+                  <Button
+                    onClick={() => handleReject(testimonial.id)}
+                    className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white"
+                  >
+                    <X size={16} />
+                    Rejeter
+                  </Button>
+                  <Button
+                    onClick={() => handleDelete(testimonial.id)}
+                    variant="outline"
+                    className="flex items-center gap-2"
+                  >
+                    <Trash2 size={16} />
+                    Supprimer
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        ) : !isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-foreground/60">
+              Aucun témoignage en attente de validation
+            </p>
+          </div>
+        ) : null}
       </div>
     </div>
   );
