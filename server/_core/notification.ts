@@ -24,7 +24,7 @@ export async function notifyOwner(
     console.log("[Mail] Attempting SMTP send...");
 
     await transporter.sendMail({
-      from: `"Matthias Renov" <contact@rommelaere-renov.be>`,
+      from: `"Matthias Renov" <${ENV.smtpUser}>`,
       to: "desmet.erwin22@gmail.com",
       subject: payload.title,
       text: payload.content,
