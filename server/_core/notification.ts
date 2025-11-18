@@ -1,4 +1,5 @@
-import { TRPCError } from "@trpc/server";\nimport { createTransport } from "nodemailer";
+import { TRPCError } from "@trpc/server";
+import { createTransport } from "nodemailer";
 import { ENV } from "./env";
 
 export type NotificationPayload = {
