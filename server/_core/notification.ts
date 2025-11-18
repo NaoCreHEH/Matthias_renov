@@ -1,5 +1,4 @@
-import { TRPCError } from "@trpc/server";
-import { createTransport } from "nodemailer";
+import { TRPCError } from "@trpc/server";\nimport { createTransport } from "nodemailer";
 import { ENV } from "./env";
 
 export type NotificationPayload = {
@@ -73,14 +72,16 @@ const transporter = createTransport({
  * Envoie un email de secours en cas d'échec de l'API de notification.
  */
 async function sendFallbackEmail(payload: NotificationPayload): Promise<boolean> {
-  if (!ENV.smtpHost || !ENV.smtpUser || !ENV.smtpPass) {
-    console.warn("[Notification] SMTP credentials not configured. Skipping fallback email.");
-    return false;
-  }
+  // Nous ne vérifions pas ici car l'utilisateur a confirmé la configuration des variables d'environnement.
+  // Le transporteur Nodemailer gérera l'échec de connexion si les variables sont incorrectes.
+  // if (!ENV.smtpHost || !ENV.smtpUser || !ENV.smtpPass) {
+  //   console.warn("[Notification] SMTP credentials not configured. Skipping fallback email.");
+  //   return false;
+  // }
 
   try {
     await transporter.sendMail({
-      from: `"${ENV.appName || "Formulaire de Contact"}" <desmet.Erwin22@gmail.com>`,
+      from: `"${ENV.appName || "Formulaire de Contact"}" <${ENV.smtpUser}>`,
       to: "desmet.erwin22@gmail.com", // L'adresse email cible demandée
       subject: payload.title,
       text: payload.content,

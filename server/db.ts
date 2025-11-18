@@ -220,7 +220,7 @@ export async function updateContactInfo(data: Partial<InsertContactInfo>) {
 }
 
 // Messages (Contact Form)
-import { notifyOwner } from "./_core/notification"; // Import de la fonction de notification
+import { sendFallbackEmail  } from "./_core/notification"; // Import de la fonction de notification
 
 export async function createMessage(data: InsertMessage) {
   const db = await getDb();
@@ -241,10 +241,10 @@ export async function createMessage(data: InsertMessage) {
   `;
 
   // L'envoi de la notification est asynchrone et ne bloque pas la réponse du formulaire
-  notifyOwner({
+  sendFallbackEmail({ // <-- APPEL DIRECT À sendFallbackEmail
     title: notificationTitle,
     content: notificationContent,
-  }).catch(console.error); // Gérer l'erreur de notification sans faire échouer la requête
+  }).catch(console.error); 
 
   return result;
 }
