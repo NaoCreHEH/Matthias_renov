@@ -3,52 +3,40 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
 import { LogIn, ArrowLeft } from "lucide-react";
 import Navigation from "@/components/Navigation";
 
 export default function Login() {
   const [, setLocation] = useLocation();
+  const { refresh } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  // ✅ Hook tRPC pour la mutation login
+  const loginMutation = trpc.auth.login.useMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !password) {
       toast.error("Veuillez remplir tous les champs");
       return;
     }
 
-    setIsLoading(true);
-
     try {
-      // Utiliser une procédure tRPC pour l'authentification
-      // Note: Cette procédure n'existe pas encore dans routers.ts, mais elle est nécessaire pour une connexion réelle.
-      // Je vais simuler l'appel pour l'instant, mais il faudra l'implémenter côté serveur.
-      // Si l'authentification est gérée par un service externe (), cette logique doit être adaptée.
-
-      // Pour l'instant, je vais conserver la simulation pour ne pas casser le build,
-      // mais je vais ajouter un commentaire pour indiquer qu'une procédure tRPC est nécessaire.
-      
-      // TODO: Remplacer par un appel tRPC réel (ex: trpc.auth.login.mutate({ email, password }))
-      if (email === "admin@rommelaere-renov.be" && password === "R0mmel@er&20") {
-        // Simulation de la création d'un cookie de session côté serveur
-        // En réalité, l'appel tRPC devrait déclencher la création du cookie.
-        
-        // Rediriger immédiatement vers le dashboard admin
-        setLocation("/admin");
-        toast.success("Connexion réussie !");
-      } else {
-        setIsLoading(false);
-        toast.error("Email ou mot de passe incorrect");
-      }
+      await loginMutation.mutateAsync({ email, password });
+      await refresh(); // re-fetch user
+      setLocation("/admin");
+      toast.success("Connexion réussie !");
     } catch (error) {
-      setIsLoading(false);
-      toast.error("Erreur lors de la connexion");
+      console.error("Erreur login:", error);
+      toast.error("Email ou mot de passe incorrect");
     }
   };
+
+  const isLoading = loginMutation.isLoading;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -67,7 +55,6 @@ export default function Login() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email
@@ -76,13 +63,12 @@ export default function Login() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@rommelaere-renov.com"
+                placeholder="admin@rommelaere-renov.be"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 disabled={isLoading}
               />
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Mot de passe
@@ -97,7 +83,6 @@ export default function Login() {
               />
             </div>
 
-            {/* Submit Button */}
             <Button
               type="submit"
               disabled={isLoading}
@@ -107,9 +92,6 @@ export default function Login() {
             </Button>
           </form>
 
-    
-
-          {/* Back Link */}
           <div className="mt-6 text-center">
             <button
               onClick={() => setLocation("/")}
