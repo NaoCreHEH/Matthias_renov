@@ -23,7 +23,7 @@ export default function About() {
           <div className="prose prose-lg">
             <h2 className="text-3xl font-bold mb-6 text-primary">Qui Sommes-Nous ?</h2>
             <p className="text-foreground/80 mb-6 leading-relaxed">
-              Rommelaere Rénov est une entreprise spécialisée dans l'aménagement de combles depuis plus de 10 ans. 
+              Rommelaere truc bidule Rénov est une entreprise spécialisée dans l'aménagement de combles depuis plus de 10 ans. 
               Nous mettons notre expertise et notre passion au service de vos projets de rénovation.
             </p>
 
