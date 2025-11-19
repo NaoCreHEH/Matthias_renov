@@ -6,7 +6,7 @@ import { COOKIE_NAME } from "@shared/const";
 import * as db from "../db";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { ENV } from "../env";
+import { ENV } from "../_core/env";
 
 const ADMIN_EMAIL = "admin@rommelaere-renov.be";
 const ADMIN_DEFAULT_PASSWORD = "R0mmel@er&20"; // tu peux changer ça si tu veux

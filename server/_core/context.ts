@@ -34,7 +34,7 @@ export async function createContext(
 import type { CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import { COOKIE_NAME } from "@shared/const";
 import jwt from "jsonwebtoken";
-import { ENV } from "../env";
+import { ENV } from "../_core/env";
 
 export type AuthUser = {
   id: string;
