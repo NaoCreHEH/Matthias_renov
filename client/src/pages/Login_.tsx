@@ -27,7 +27,7 @@ export default function Login() {
       // Utiliser une procédure tRPC pour l'authentification
       // Note: Cette procédure n'existe pas encore dans routers.ts, mais elle est nécessaire pour une connexion réelle.
       // Je vais simuler l'appel pour l'instant, mais il faudra l'implémenter côté serveur.
-      // Si l'authentification est gérée par un service externe (comme Manus OAuth), cette logique doit être adaptée.
+      // Si l'authentification est gérée par un service externe (), cette logique doit être adaptée.
 
       // Pour l'instant, je vais conserver la simulation pour ne pas casser le build,
       // mais je vais ajouter un commentaire pour indiquer qu'une procédure tRPC est nécessaire.

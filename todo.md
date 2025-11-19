@@ -9,7 +9,6 @@
 - [x] Page Réalisations/Portfolio
 - [x] Page Contact avec formulaire
 - [x] Système de gestion de contenu (CMS) - Interface admin
-- [x] Authentification admin (via Manus OAuth)
 - [ ] Galerie d'images modifiable (à améliorer avec upload S3)
 - [x] Préparation pour authentification clients (login devis)
 - [x] Responsive design

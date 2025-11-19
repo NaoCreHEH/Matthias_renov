@@ -15,7 +15,6 @@ Votre site est construit avec les technologies les plus modernes :
 - **Frontend** : React 19 + TypeScript + Tailwind CSS 4 pour une interface réactive et élégante
 - **Backend** : Express.js + tRPC pour une API performante et type-safe
 - **Base de données** : MySQL avec Drizzle ORM pour une gestion robuste des données
-- **Authentification** : Manus OAuth pour un accès sécurisé à l'administration
 - **Déploiement** : Infrastructure auto-scaling avec CDN global pour une disponibilité maximale
 
 ---
@@ -88,8 +87,7 @@ Les clients peuvent vous contacter directement via le formulaire. Ils peuvent au
 ### Système de Gestion de Contenu (CMS)
 Vous pouvez modifier tous les contenus du site sans connaître le code. L'interface est intuitive et facile à utiliser.
 
-### Authentification Sécurisée
-Seuls les administrateurs autorisés peuvent accéder à l'administration. Vos données sont protégées par Manus OAuth.
+
 
 ### Responsive Design
 Votre site s'adapte automatiquement à tous les appareils (ordinateur, tablette, téléphone).

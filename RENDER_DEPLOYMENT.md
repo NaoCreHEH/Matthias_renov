@@ -23,8 +23,6 @@ Allez dans les paramètres de votre service Render et ajoutez :
 - `DATABASE_URL` : Votre URL de connexion MySQL
 - `JWT_SECRET` : Une clé secrète aléatoire
 - `VITE_APP_ID` : Votre ID d'application Manus
-- `OAUTH_SERVER_URL` : https://api.manus.im
-- `VITE_OAUTH_PORTAL_URL` : https://portal.manus.im
 - `OWNER_NAME` : Matthias Rommelaere
 - `OWNER_OPEN_ID` : Votre ID Manus
 - `VITE_APP_TITLE` : Rommelaere Rénov
