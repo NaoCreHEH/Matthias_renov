@@ -10,25 +10,8 @@
   <link rel="icon" type="image/png" href="%VITE_APP_LOGO%" />
   <link rel="apple-touch-icon" href="%VITE_APP_LOGO%" />
 
-  <!-- Title optimisé -->
-  <title>Rénovation intérieure à Mons – Gyproc, plafonnage & isolation | Rommelaere Rénov</title>
-
-  <!-- Meta description SEO -->
-  <meta name="description"
-        content="Rommelaere Rénov : spécialiste en gyproc, plafonnage, isolation et rénovation intérieure dans la région de Mons, Dour et Quévy. Travail soigné, finitions de qualité et devis gratuit." />
-
-  <!-- Keywords (optionnel mais utile) -->
-  <meta name="keywords"
-        content="rénovation Mons, gyproc Mons, plafonnage Mons, isolation Mons, rénovation intérieure Dour, rénovation Quévy, entreprise rénovation Mons" />
-
-  <!-- Open Graph (Facebook, Messenger, WhatsApp, etc.) -->
-  <meta property="og:title"
-        content="Rénovation intérieure à Mons – Gyproc, plafonnage & isolation | Rommelaere Rénov" />
-  <meta property="og:description"
-        content="Spécialiste local en gyproc, plafonnage et isolation à Mons, Dour et Quévy. Travail soigné, finitions impeccables et devis gratuit." />
-  <meta property="og:image" content="%VITE_APP_LOGO%" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="fr_BE" />
+  <!-- Titre générique, sera surchargé par React Helmet -->
+  <title>%VITE_APP_TITLE%</title>
 
   <!-- Google Fonts (optionnel) -->
   <!--
@@ -43,9 +26,11 @@
 
   <script type="module" src="/src/main.tsx"></script>
 
-  <script defer
-          src="%VITE_ANALYTICS_ENDPOINT%/umami"
-          data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+  <script
+    defer
+    src="%VITE_ANALYTICS_ENDPOINT%/umami"
+    data-website-id="%VITE_ANALYTICS_WEBSITE_ID%">
+  </script>
 </body>
 
 </html>
