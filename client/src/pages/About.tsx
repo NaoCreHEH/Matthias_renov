@@ -53,7 +53,8 @@ export default function About() {
       {/* Matthias Section */}
       <section className="py-16 bg-gray-50">
         <div className="container max-w-3xl">
-          <h2 className="text-3xl font-bold mb-8 text-center text-primary">Notre Équipe</h2>
+          {/*
+          <h2 className="text-3xl font-bold mb-8 text-center text-primary"> Notre équipe </h2>*/}
           <div className="bg-white rounded-lg overflow-hidden shadow-lg">
             <div className="grid md:grid-cols-2 gap-8 p-8">
               <div className="flex items-center justify-center">
