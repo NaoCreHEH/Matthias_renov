@@ -7,6 +7,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
 import { LogIn, ArrowLeft } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import { Helmet } from "react-helmet";
 
 export default function Login() {
   const [, setLocation] = useLocation();
@@ -45,6 +46,12 @@ export default function Login() {
   };
 
   return (
+    <>
+    <Helmet>
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Connexion</title>
+</Helmet>
+
     <div className="min-h-screen bg-gray-50">
       <Navigation />
 
@@ -116,5 +123,6 @@ export default function Login() {
         </Card>
       </div>
     </div>
+    </>
   );
 }

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import ImageCarousel from "@/components/ImageCarousel";
 import { trpc } from "@/lib/trpc";
+import { Helmet } from "react-helmet";
 
 
 export default function Projects() {
@@ -12,6 +13,16 @@ export default function Projects() {
   // Les images sont maintenant incluses dans l'objet 'project' retourné par l'API.
 
   return (
+    <>
+    <Helmet>
+  <title>Nos réalisations – Rénovation intérieure à Mons | Rommelaere Rénov</title>
+  <meta
+    name="description"
+    content="Découvrez nos réalisations en gyproc, plafonnage, isolation et aménagement intérieur. Travaux effectués à Mons, Dour, Quévy et alentours."
+  />
+  <meta name="robots" content="index, follow" />
+</Helmet>
+
     <div className="min-h-screen flex flex-col bg-white">
       {/* Le composant SeoHelmet a été retiré d'ici */}
       <Navigation />
@@ -81,5 +92,6 @@ export default function Projects() {
         </div>
       </footer>
     </div>
+    </>
    );
 }

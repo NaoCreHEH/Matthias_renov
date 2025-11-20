@@ -4,6 +4,7 @@ import { trpc } from "@/lib/trpc";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Helmet } from "react-helmet";
 
 export default function Contact() {
   const { data: contactInfo } = trpc.content.getContactInfo.useQuery();
@@ -42,6 +43,15 @@ export default function Contact() {
   };
 
   return (
+    <><Helmet>
+  <title>Contact – Rommelaere Rénov | Devis rénovation intérieure à Mons</title>
+  <meta
+    name="description"
+    content="Contactez Rommelaere Rénov pour vos travaux de gyproc, plafonnage, isolation ou aménagement intérieur. Intervention à Mons, Dour, Quévy et alentours."
+  />
+  <meta name="robots" content="index, follow" />
+</Helmet>
+
     <div className="min-h-screen flex flex-col bg-white">
       <Navigation />
 
@@ -203,5 +213,6 @@ export default function Contact() {
         </div>
       </footer>
     </div>
+    </>
   );
 }

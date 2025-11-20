@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { Helmet } from "react-helmet";  
 
 export default function Testimonials() {
   const { data: testimonials = [], isLoading } = trpc.testimonials?.list?.useQuery?.() ?? { data: [], isLoading: false };
@@ -90,6 +91,16 @@ export default function Testimonials() {
   };
 
   return (
+    <>
+    <Helmet>
+  <title>Avis clients – Rommelaere Rénov | Rénovation intérieure à Mons</title>
+  <meta
+    name="description"
+    content="Découvrez les avis de nos clients pour nos travaux de rénovation intérieure, gyproc, plafonnage et isolation réalisés à Mons, Dour et Quévy."
+  />
+  <meta name="robots" content="index, follow" />
+</Helmet>
+
     <div className="min-h-screen flex flex-col bg-white">
       <Navigation />
 
@@ -291,5 +302,6 @@ export default function Testimonials() {
         </div>
       </footer>
     </div>
+    </>
   );
 }

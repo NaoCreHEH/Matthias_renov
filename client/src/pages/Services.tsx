@@ -2,11 +2,21 @@ import Navigation from "@/components/Navigation";
 import { trpc } from "@/lib/trpc";
 import { Wrench } from "lucide-react";
 import { DynamicIcon } from "@/components/DynamicIcon";
+import { Helmet } from "react-helmet";
 
 export default function Services() {
   const { data: services, isLoading } = trpc.content.getServices.useQuery();
 
   return (
+    <>
+    <Helmet>
+  <title>Nos services – Rénovation intérieure à Mons | Gyproc, plafonnage & isolation</title>
+  <meta
+    name="description"
+    content="Découvrez nos services de rénovation intérieure : gyproc, plafonnage, isolation, aménagement de combles et finitions. Intervention dans la région de Mons, Dour et Quévy."
+  />
+  <meta name="robots" content="index, follow" />
+</Helmet>
     <div className="min-h-screen flex flex-col bg-white">
       <Navigation />
 
@@ -71,5 +81,6 @@ export default function Services() {
         </div>
       </footer>
     </div>
+    </>
   );
 }

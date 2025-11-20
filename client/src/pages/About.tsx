@@ -1,9 +1,20 @@
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { Helmet } from "react-helmet";
 
 export default function About() {
   return (
+    <>
+<Helmet>
+  <title>À propos – Rommelaere Rénov | Artisan en rénovation intérieure à Mons</title>
+  <meta
+    name="description"
+    content="Rommelaere Rénov : artisan rénovateur à Mons spécialisé en gyproc, plafonnage, isolation et aménagement intérieur. Travail soigné et suivi personnalisé."
+  />
+  <meta name="robots" content="index, follow" />
+</Helmet>
+
     <div className="min-h-screen flex flex-col bg-white">
       <Navigation />
 
@@ -115,5 +126,6 @@ export default function About() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
