@@ -17,15 +17,30 @@ export default function Home() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
+              {/* H1 optimisé SEO */}
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Rommelaere Rénov
+                Rénovation intérieure à Mons, Dour et Quévy – Gyproc, plafonnage & isolation
               </h1>
-              <p className="text-xl mb-2 text-primary-foreground/90">
-                Spécialisé en aménagement de combles
+
+              {/* Nom de l'entreprise en sous-titre */}
+              <p className="text-xl mb-2 text-primary-foreground/90 font-semibold">
+                Rommelaere Rénov – artisan local spécialisé en aménagement de combles
               </p>
-              <p className="text-lg mb-6 text-primary-foreground/80">
-                Gyproc • Enduit • Retouche sur plafonnage
+
+              {/* Phrase métier + zone */}
+              <p className="text-lg mb-4 text-primary-foreground/80">
+                Nous réalisons vos travaux de gyproc, plafonnage, enduits, isolation et finitions intérieures
+                dans toute la région de Mons, Dour et Quévy. Des combles aux pièces de vie, nous transformons
+                vos espaces pour les rendre plus confortables, fonctionnels et lumineux.
               </p>
+
+              {/* Petit paragraphe rassurant */}
+              <p className="text-base mb-6 text-primary-foreground/80">
+                Travail soigné, respect des délais et suivi de chantier personnalisé : Rommelaere Rénov est votre
+                partenaire de confiance pour tous vos projets de rénovation intérieure, que ce soit une retouche
+                sur plafonnage, la création de cloisons en gyproc ou l&apos;aménagement complet d&apos;un étage.
+              </p>
+
               <div className="flex gap-4 flex-wrap">
                 <Link href="/contact">
                   <Button size="lg" className="bg-accent hover:bg-accent/90 text-white">
@@ -33,30 +48,75 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link href="/projects">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-white text-white hover:bg-white/10"
+                  >
                     Voir nos réalisations
                   </Button>
                 </Link>
               </div>
+
+              {/* Zones d'intervention directement visibles */}
+              <p className="mt-4 text-sm text-primary-foreground/80">
+                Interventions dans : Mons, Dour, Quévy et alentours (Borinage, région de Mons).
+              </p>
             </div>
             <div className="hidden md:flex justify-center">
-              <img src="/image2vector.svg" alt="Rommelaere Rénov" className="w-64 h-64" />
+              <img
+                src="/image2vector.svg"
+                alt="Travaux de gyproc et plafonnage par Rommelaere Rénov à Mons"
+                className="w-64 h-64"
+              />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Section Pourquoi nous choisir */}
+      <section className="py-14 bg-white">
+        <div className="container max-w-5xl">
+          <h2 className="text-3xl font-bold text-center mb-8 text-primary">
+            Une entreprise de rénovation intérieure locale et professionnelle
+          </h2>
+          <p className="text-foreground/80 text-center mb-6">
+            Rommelaere Rénov est une entreprise de rénovation intérieure à taille humaine, basée dans la
+            région de Mons. Nous accompagnons les particuliers pour des projets de petite ou grande ampleur :
+            aménagement de combles, pose de gyproc, retouches sur plafonnage, isolation intérieure et finitions.
+          </p>
+          <p className="text-foreground/80 text-center">
+            Chaque chantier est suivi par le même interlocuteur, de la première visite au rendu final. Nous
+            privilégions la qualité des matériaux, la propreté du travail et une communication claire avec nos
+            clients, afin de garantir un résultat durable et soigné.
+          </p>
         </div>
       </section>
 
       {/* Services Section */}
       <section className="py-16 bg-gray-50">
         <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-12 text-primary">
-            Nos Services
+          <h2 className="text-3xl font-bold text-center mb-4 text-primary">
+            Nos Services de rénovation intérieure
           </h2>
+          <p className="text-center text-foreground/80 max-w-2xl mx-auto mb-10">
+            Gyproc, plafonnage, enduits, isolation intérieure, aménagement de combles et finitions :
+            nous proposons des solutions complètes pour rénover vos intérieurs dans la région de Mons, Dour
+            et Quévy. Découvrez ci-dessous quelques-uns de nos services.
+          </p>
+
           <div className="grid md:grid-cols-3 gap-8">
             {services?.map((service) => (
-              <div key={service.id} className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
-                <h3 className="text-xl font-bold mb-3 text-primary">{service.title}</h3>
-                <p className="text-foreground/80 mb-4">{service.description}</p>
+              <div
+                key={service.id}
+                className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition"
+              >
+                <h3 className="text-xl font-bold mb-3 text-primary">
+                  {service.title}
+                </h3>
+                <p className="text-foreground/80 mb-4">
+                  {service.description}
+                </p>
               </div>
             ))}
           </div>
@@ -70,19 +130,45 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Zones d'intervention */}
+      <section className="py-14 bg-white">
+        <div className="container max-w-4xl">
+          <h2 className="text-3xl font-bold text-center mb-6 text-primary">
+            Zones d&apos;intervention
+          </h2>
+          <p className="text-center text-foreground/80 mb-4">
+            Nous intervenons principalement dans la région de Mons, Dour, Quévy et les communes
+            avoisinantes. Si vous habitez dans le Borinage ou aux alentours de Mons, n&apos;hésitez pas à
+            nous contacter pour vérifier si nous pouvons nous déplacer chez vous.
+          </p>
+          <p className="text-center text-foreground/80">
+            Notre objectif : offrir un service de proximité, réactif et de qualité, avec un artisan qui
+            connaît bien le terrain et les besoins des habitations locales.
+          </p>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-50">
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12 text-primary">
-            Nous Contacter
+            Nous contacter pour votre projet
           </h2>
+          <p className="text-center text-foreground/80 max-w-2xl mx-auto mb-10">
+            Vous avez un projet d&apos;aménagement de combles, de pose de gyproc, de retouche sur plafonnage
+            ou d&apos;isolation intérieure ? Expliquez-nous votre situation et nous reviendrons vers vous
+            rapidement avec une proposition adaptée.
+          </p>
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {contactInfo?.phone && (
               <div className="flex items-start gap-4">
                 <Phone className="text-accent mt-1 flex-shrink-0" size={24} />
                 <div>
                   <h3 className="font-bold text-lg mb-1">Téléphone</h3>
-                  <a href={`tel:${contactInfo.phone}`} className="text-primary hover:underline">
+                  <a
+                    href={`tel:${contactInfo.phone}`}
+                    className="text-primary hover:underline"
+                  >
                     {contactInfo.phone}
                   </a>
                 </div>
@@ -93,7 +179,10 @@ export default function Home() {
                 <Mail className="text-accent mt-1 flex-shrink-0" size={24} />
                 <div>
                   <h3 className="font-bold text-lg mb-1">Email</h3>
-                  <a href={`mailto:${contactInfo.email}`} className="text-primary hover:underline">
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    className="text-primary hover:underline"
+                  >
                     {contactInfo.email}
                   </a>
                 </div>
@@ -122,7 +211,12 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-primary text-white py-8">
         <div className="container flex flex-col md:flex-row justify-between items-center gap-4">
-          <p>&copy; 2024 Rommelaere Rénov. Tous droits réservés.</p>
+          <div className="text-center md:text-left">
+            <p>&copy; 2024 Rommelaere Rénov. Tous droits réservés.</p>
+            <p className="text-xs opacity-90 mt-1">
+              Entreprise de rénovation intérieure spécialisée en gyproc, plafonnage et isolation – active à Mons, Dour et Quévy.
+            </p>
+          </div>
           <a
             href="https://www.facebook.com/people/Rommelaere-Renov/100064883967078/"
             target="_blank"
