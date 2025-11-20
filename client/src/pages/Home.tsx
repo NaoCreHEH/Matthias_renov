@@ -3,12 +3,46 @@ import Navigation from "@/components/Navigation";
 import { Link } from "wouter";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import {Helmet} from "react-helmet";
 
 export default function Home() {
   const { data: contactInfo } = trpc.content.getContactInfo.useQuery();
   const { data: services } = trpc.content.getServices.useQuery();
 
   return (
+    <>
+      <Helmet>
+        <title>
+          Rénovation intérieure à Mons – Gyproc, plafonnage & isolation | Rommelaere Rénov
+        </title>
+
+        <meta
+          name="description"
+          content="Rommelaere Rénov est une entreprise de rénovation intérieure spécialisée en gyproc, plafonnage, enduits et isolation dans la région de Mons, Dour et Quévy. Travail soigné, devis gratuit et suivi de chantier professionnel."
+        />
+
+        {/* Open Graph (Facebook, Messenger, WhatsApp) */}
+        <meta property="og:title"
+              content="Rénovation intérieure à Mons – Gyproc, plafonnage & isolation | Rommelaere Rénov" />
+        <meta property="og:description"
+              content="Artisan spécialisé en gyproc, plafonnage, aménagement de combles et isolation à Mons, Dour et Quévy. Travail propre et finitions de qualité." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.rommelaere-renov.be" />
+        <meta property="og:image" content="/image2vector.svg" />
+        <meta property="og:locale" content="fr_BE" />
+
+        {/* Mots-clés (SEO old-school mais encore utile dans ta niche locale) */}
+        <meta
+          name="keywords"
+          content="rénovation Mons, rénovation intérieure Mons, gyproc Mons, plafonnage Mons, isolation Mons, rénovation Dour, rénovation Quévy, pose de gyproc Mons, plafonneur Mons"
+        />
+
+        {/* Langue */}
+        <meta httpEquiv="Content-Language" content="fr-BE" />
+
+      </Helmet>
+    
+
     <div className="min-h-screen flex flex-col bg-white">
       <Navigation />
 
@@ -228,5 +262,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+  </>
   );
 }
