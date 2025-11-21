@@ -58,7 +58,7 @@ export default function Home() {
           "Dour",
           "Quévy"
         ],
-        "telephone": "0032472655873""}",
+        "telephone": "0032472654873",
         "description": "Entreprise de rénovation intérieure spécialisée en gyproc, plafonnage, isolation et aménagement de combles dans la région de Mons, Dour et Quévy."
       }
     `}
