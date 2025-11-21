@@ -68,11 +68,11 @@ export default function Navigation() {
               </Button>
             </Link>
           ))}
-
+        
           {/* Séparateur */}
           <div className="w-px h-6 bg-border mx-2" />
-
-          {/* Admin/Login Buttons */}
+          
+          {/* Admin/Login Buttons 
           {isLoggedIn && userRole === "admin" ? (
             <>
               <Link href="/admin">
@@ -103,7 +103,7 @@ export default function Navigation() {
                 Admin
               </Button>
             </Link>
-          )}
+          )}*/}
         </div>
 
         {/* Mobile Menu Button */}
@@ -135,7 +135,7 @@ export default function Navigation() {
             {/* Séparateur Mobile */}
             <div className="w-full h-px bg-border my-2" />
 
-            {/* Admin/Login Mobile */}
+            {/* Admin/Login Mobile 
             {isLoggedIn && userRole === "admin" ? (
               <>
                 <Link href="/admin">
@@ -171,7 +171,7 @@ export default function Navigation() {
                   Admin
                 </Button>
               </Link>
-            )}
+            )}*/}
           </div>
         </div>
       )}
