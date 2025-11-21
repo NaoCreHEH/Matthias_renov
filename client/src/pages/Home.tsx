@@ -56,11 +56,43 @@ export default function Home() {
         "areaServed": [
           "Mons",
           "Dour",
-          "Quévy"
+          "Quévy",
+          "Borinage",
+          "Région de Mons",
+          "Saint-Ghislain",
+          "Colfontaine",
+          "Frameries",
+          "Quaregnon",
+          "Hensies",
+          "Wasmes"
         ],
         "telephone": "0032472654873",
         "description": "Entreprise de rénovation intérieure spécialisée en gyproc, plafonnage, isolation et aménagement de combles dans la région de Mons, Dour et Quévy."
-      }
+         "sameAs": [
+        "https://www.facebook.com/people/Rommelaere-Renov/100064883967078/"
+      ],
+      "knowsAbout": [
+        "Gyproc",
+        "Cloisons en plaques de plâtre",
+        "Plafonnage",
+        "Retouches de plafonnage",
+        "Enduits muraux",
+        "Isolation intérieure",
+        "Aménagement de combles",
+        "Faux plafonds",
+        "Finitions intérieures",
+        "Rénovation intérieure"
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+32472654873",
+          "contactType": "customer service",
+          "areaServed": "BE",
+          "availableLanguage": ["fr"]
+        }
+      ]      
+        }
     `}
   </script>
       </Helmet>
