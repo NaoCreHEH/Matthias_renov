@@ -287,24 +287,42 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary text-white py-8">
-        <div className="container flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-center md:text-left">
-            <p>&copy; 2024 Rommelaere Rénov. Tous droits réservés.</p>
-            <p className="text-xs opacity-90 mt-1">
-              Entreprise de rénovation intérieure spécialisée en gyproc, plafonnage et isolation – active à Mons, Dour et Quévy.
-            </p>
+        <footer className="bg-primary text-white py-8">
+          <div className="container flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            {/* Bloc gauche */}
+            <div className="text-center md:text-left">
+              <p>&copy; {new Date().getFullYear()} Rommelaere Rénov. Tous droits réservés.</p>
+
+              <p className="text-xs opacity-90 mt-1">
+                Entreprise de rénovation intérieure spécialisée en gyproc, plafonnage et isolation – 
+                active à Mons, Dour et Quévy.
+              </p>
+
+              {/* 👉 NOUVEAU LIEN SEO */}
+              <p className="text-xs opacity-90 mt-1">
+                <Link
+                  href="/zones-intervention-renovation-mons"
+                  className="underline hover:text-accent"
+                >
+                  Zones d’intervention : Mons, Dour, Quévy & Borinage
+                </Link>
+              </p>
+            </div>
+
+            {/* Bloc droit */}
+            <a
+              href="https://www.facebook.com/people/Rommelaere-Renov/100064883967078/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent transition"
+            >
+              Suivez-nous sur Facebook
+            </a>
+
           </div>
-          <a
-            href="https://www.facebook.com/people/Rommelaere-Renov/100064883967078/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent transition"
-          >
-            Suivez-nous sur Facebook
-          </a>
-        </div>
-      </footer>
+        </footer>
+
     </div>
   </>
   );
