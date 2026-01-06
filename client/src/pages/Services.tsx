@@ -7,7 +7,11 @@ import { Link } from "wouter";
 const serviceLinks: Record<string, string> = {
   gyproc: "/gyproc-mons",
   plafonnage: "/plafonnage-mons",
+  enduit: "/enduits-finitions-mons",
+  enduits: "/enduits-finitions-mons",
+  finitions: "/enduits-finitions-mons",
 };
+
 
 export default function Services() {
   const { data: services, isLoading } = trpc.content.getServices.useQuery();
