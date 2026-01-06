@@ -17,7 +17,7 @@ export default function ZonesIntervention() {
 
         <link
           rel="canonical"
-          href="https://www.rommelaere-renov.be/zones-intervention-renovation-mons"
+          href="https://rommelaere-renov.be/zones-intervention-renovation-mons"
         />
 
         <meta name="robots" content="index, follow" />
@@ -34,11 +34,11 @@ export default function ZonesIntervention() {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content="https://www.rommelaere-renov.be/zones-intervention-renovation-mons"
+          content="https://rommelaere-renov.be/zones-intervention-renovation-mons"
         />
         <meta
           property="og:image"
-          content="https://www.rommelaere-renov.be/image2vector.svg"
+          content="https://rommelaere-renov.be/image2vector.svg"
         />
       </Helmet>
 
@@ -62,61 +62,12 @@ export default function ZonesIntervention() {
         <section className="py-16">
           <div className="container max-w-4xl space-y-10">
 
-            <p className="text-foreground/80">
-              Nous accompagnons les particuliers pour tous leurs projets de rénovation
-              intérieure : pose de gyproc, plafonnage, enduits, isolation intérieure,
-              aménagement de combles et finitions. Chaque chantier est réalisé avec soin,
-              dans une logique de proximité et de suivi personnalisé.
-            </p>
+                    <p className="text-foreground/80">
+            Nous intervenons à Mons, Dour, Quévy et dans le Borinage pour l’ensemble de nos services
+            de rénovation intérieure. Gyproc, plafonnage, enduits, isolation et finitions sont
+            réalisés avec le même soin, quelle que soit votre commune.
+          </p>
 
-            {/* Mons */}
-            <div>
-              <h2 className="text-2xl font-bold text-primary mb-2">
-                Rénovation intérieure à Mons
-              </h2>
-              <p className="text-foreground/80">
-                À Mons, nous réalisons régulièrement des travaux de rénovation intérieure
-                pour maisons et appartements : cloisons en gyproc, plafonnage,
-                enduits muraux, isolation et finitions soignées.
-              </p>
-            </div>
-
-            {/* Dour */}
-            <div>
-              <h2 className="text-2xl font-bold text-primary mb-2">
-                Travaux de rénovation à Dour
-              </h2>
-              <p className="text-foreground/80">
-                À Dour, Rommelaere Rénov intervient pour des projets de rénovation
-                intérieure adaptés aux habitations locales, avec une attention
-                particulière portée à la qualité des finitions.
-              </p>
-            </div>
-
-            {/* Quévy */}
-            <div>
-              <h2 className="text-2xl font-bold text-primary mb-2">
-                Rénovation intérieure à Quévy
-              </h2>
-              <p className="text-foreground/80">
-                Nous proposons également nos services de rénovation intérieure à
-                Quévy et dans les communes avoisinantes, pour améliorer le confort
-                et l’esthétique de vos espaces de vie.
-              </p>
-            </div>
-
-            {/* Borinage */}
-            <div>
-              <h2 className="text-2xl font-bold text-primary mb-2">
-                Interventions dans le Borinage et les alentours
-              </h2>
-              <p className="text-foreground/80">
-                En plus de Mons, Dour et Quévy, nous intervenons dans l’ensemble du
-                Borinage, notamment à Saint-Ghislain, Frameries, Quaregnon et
-                Colfontaine. Contactez-nous pour vérifier notre disponibilité
-                dans votre commune.
-              </p>
-            </div>
 
             {/* Services links */}
             <div className="pt-6 border-t border-border">
