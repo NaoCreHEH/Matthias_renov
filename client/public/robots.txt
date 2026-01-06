@@ -4,5 +4,7 @@ Allow: /
 # On évite que Google indexe l’admin et la page de login
 Disallow: /admin
 Disallow: /login
+Disallow: /404
 
 Sitemap: https://www.rommelaere-renov.be/sitemap.xml
+
