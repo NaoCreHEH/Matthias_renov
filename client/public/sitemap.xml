@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- Accueil -->
   <url>
     <loc>https://rommelaere-renov.be/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
+  <!-- Services -->
   <url>
     <loc>https://rommelaere-renov.be/services</loc>
     <changefreq>monthly</changefreq>
@@ -14,27 +16,56 @@
   </url>
 
   <url>
-    <loc>https://rommelaere-renov.be/projects</loc>
+    <loc>https://rommelaere-renov.be/gyproc-mons</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://rommelaere-renov.be/plafonnage-mons</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://rommelaere-renov.be/enduits-finitions-mons</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Zones d’intervention -->
+  <url>
+    <loc>https://rommelaere-renov.be/zones-intervention-renovation-mons</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Réalisations -->
+  <url>
+    <loc>https://rommelaere-renov.be/projects</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Témoignages -->
   <url>
     <loc>https://rommelaere-renov.be/testimonials</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
+  <!-- Contact -->
   <url>
     <loc>https://rommelaere-renov.be/contact</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
 
+  <!-- À propos -->
   <url>
     <loc>https://rommelaere-renov.be/about</loc>
     <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
 
 </urlset>
