@@ -152,5 +152,22 @@ export default function EnduitsFinitionsMons() {
           <p className="text-foreground/80 mb-4">
             Nous intervenons principalement pour vos enduits et finitions dans
             la région de :
-      
-::contentReference[oaicite:0]{index=0}
+          </p>
+          <p className="text-foreground/80">
+            <strong>
+              Mons, Dour, Quévy, Binche, Frameries, Saint-Ghislain, Quaregnon,
+              Colfontaine et alentours.
+            </strong>
+          </p>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="bg-primary text-white py-6 mt-auto">
+        <div className="container text-center md:text-left">
+          <p>&copy; {new Date().getFullYear()} Rommelaere Rénov. Tous droits réservés.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
