@@ -18,7 +18,7 @@ import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import Testimonials from "./pages/Testimonials";
 import Login from "./pages/Login";
 import GyprocMons from "./pages/GyprocMons";
-import PlafonnageMons from "./pages/PlafonnageMons";
+import PlafonnageMons from "./pages/plafonnageMons";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes

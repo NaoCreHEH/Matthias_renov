@@ -42,6 +42,9 @@ export default function Services() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://rommelaere-renov.be/services" />
         <meta property="og:image" content="/image2vector.svg" />
+        <meta property="og:locale" content="fr_BE" />
+        <meta property="og:site_name" content="Rommelaere Rénov" />
+
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-white">
