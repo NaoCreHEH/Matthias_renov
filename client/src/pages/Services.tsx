@@ -99,6 +99,14 @@ export default function Services() {
                         </button>
                       </Link>
                     )}
+
+                    {service.title.toLowerCase().includes("plafonnage") && (
+                      <Link href="/plafonnage-mons">
+                        <button className="mt-2 text-primary underline hover:text-accent">
+                          En savoir plus sur le plafonnage →
+                        </button>
+                      </Link>
+                    )}
                   </div>
                 ))}
               </div>

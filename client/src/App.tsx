@@ -18,6 +18,7 @@ import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import Testimonials from "./pages/Testimonials";
 import Login from "./pages/Login";
 import GyprocMons from "./pages/GyprocMons";
+import PlafonnageMons from "./pages/PlafonnageMons";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -26,6 +27,7 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/services"} component={Services} />
       <Route path={"/gyproc-mons"} component={GyprocMons} />
+      <Route path={"/plafonnage-mons"} component={PlafonnageMons} />
       <Route path={"/about"} component={About} />
       <Route path={"/projects"} component={Projects} />
       <Route path={"/contact"} component={Contact} />
