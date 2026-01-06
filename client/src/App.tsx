@@ -20,7 +20,7 @@ import Login from "./pages/Login";
 import GyprocMons from "./pages/GyprocMons";
 import PlafonnageMons from "./pages/plafonnageMons";
 import EnduitsFinitionsMons from "./pages/EnduitsFinitionsMons";
-
+import ZonesIntervention from "./pages/ZonesIntervention";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -41,6 +41,7 @@ function Router() {
       <Route path={"/admin/contact"} component={AdminContact} />
       <Route path={"/admin/testimonials"} component={AdminTestimonials} />
       <Route path={"/testimonials"} component={Testimonials} />
+      <Route path={"/zones-intervention-renovation-mons"}  component={ZonesIntervention}/>
       <Route path={"/login"} component={Login} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
