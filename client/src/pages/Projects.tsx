@@ -16,6 +16,8 @@ export default function Projects() {
     <>
     <Helmet>
   <title>Nos réalisations – Rénovation intérieure à Mons | Rommelaere Rénov</title>
+  <link rel="canonical" href="https://rommelaere-renov.be/projects" />
+
   <meta
     name="description"
     content="Découvrez nos réalisations en gyproc, plafonnage, isolation et aménagement intérieur. Travaux effectués à Mons, Dour, Quévy et alentours."

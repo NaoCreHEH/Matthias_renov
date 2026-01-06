@@ -13,6 +13,8 @@ export default function Services() {
         <title>
           Services de rénovation intérieure à Mons – Gyproc, plafonnage & isolation | Rommelaere Rénov
         </title>
+        <link rel="canonical" href="https://rommelaere-renov.be/services" />
+
         <meta
           name="description"
           content="Découvrez les services de Rommelaere Rénov : gyproc, cloisons, plafonnage, isolation intérieure, aménagement de combles et finitions dans la région de Mons, Dour, Quévy et le Borinage."
