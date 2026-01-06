@@ -4,6 +4,11 @@ import { Wrench } from "lucide-react";
 import { Helmet } from "react-helmet";
 import { Link } from "wouter";
 
+const serviceLinks: Record<string, string> = {
+  gyproc: "/gyproc-mons",
+  plafonnage: "/plafonnage-mons",
+};
+
 export default function Services() {
   const { data: services, isLoading } = trpc.content.getServices.useQuery();
 
@@ -35,7 +40,7 @@ export default function Services() {
           content="Rommelaere Rénov propose des services complets de rénovation intérieure : gyproc, plafonnage, isolation, aménagement de combles et finitions dans la région de Mons."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.rommelaere-renov.be/services" />
+        <meta property="og:url" content="https://rommelaere-renov.be/services" />
         <meta property="og:image" content="/image2vector.svg" />
       </Helmet>
 
@@ -69,46 +74,39 @@ export default function Services() {
               </div>
             ) : services && services.length > 0 ? (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {services.map((service) => (
-                  <div
-                    key={service.id}
-                    className="bg-white border border-border rounded-lg p-8 hover:shadow-lg transition"
-                  >
-                    <div className="mb-4">
-                      {/* Icône/emoji/texte */}
-                      {service.icon ? (
-                        <div className="text-accent text-4xl">
-                          {service.icon}
-                        </div>
-                      ) : (
-                        <Wrench className="text-accent" size={32} />
+                {services.map((service) => {
+                  const serviceKey = Object.keys(serviceLinks).find((key) =>
+                    service.title.toLowerCase().includes(key)
+                  );
+
+                  return (
+                    <div
+                      key={service.id}
+                      className="bg-white border border-border rounded-lg p-8 hover:shadow-lg transition"
+                    >
+                      <div className="mb-4">
+                        {service.icon ? (
+                          <div className="text-accent text-4xl">{service.icon}</div>
+                        ) : (
+                          <Wrench className="text-accent" size={32} />
+                        )}
+                      </div>
+
+                      <h2 className="text-2xl font-bold mb-3 text-primary">{service.title}</h2>
+
+                      <p className="text-foreground/80 mb-4">{service.description}</p>
+
+                      {serviceKey && (
+                        <Link href={serviceLinks[serviceKey]}>
+                          <button className="mt-2 text-primary underline hover:text-accent">
+                            En savoir plus →
+                          </button>
+                        </Link>
                       )}
                     </div>
-                    <h2 className="text-2xl font-bold mb-3 text-primary">
-                      {service.title}
-                    </h2>
-                    <p className="text-foreground/80 mb-4">
-                      {service.description}
-                    </p>
+                  );
+                })}
 
-                    {/* Lien vers la page Gyproc si le service concerne le gyproc */}
-                    {service.title.toLowerCase().includes("gyproc") && (
-                      <Link href="/gyproc-mons">
-                        <button className="mt-2 text-primary underline hover:text-accent">
-                          En savoir plus sur la pose de gyproc →
-                        </button>
-                      </Link>
-                    )}
-
-                    {service.title.toLowerCase().includes("plafonnage") && (
-                      <Link href="/plafonnage-mons">
-                        <button className="mt-2 text-primary underline hover:text-accent">
-                          En savoir plus sur le plafonnage →
-                        </button>
-                      </Link>
-                    )}
-                  </div>
-                ))}
               </div>
             ) : (
               <div className="text-center py-12">
