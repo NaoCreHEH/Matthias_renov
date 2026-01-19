@@ -110,7 +110,7 @@ export default function Home() {
               {/* Phrase métier + zone */}
               <p className="text-lg mb-4 text-primary-foreground/80">
                 Nous réalisons vos travaux de gyproc, plafonnage, enduits, isolation et finitions intérieures
-                dans toute la région de Mons, Dour et Quévy. Des combles aux pièces de vie, nous transformons
+                dans toute la région de Mons, Dour, Quévy et tout le Hainaut. Des combles aux pièces de vie, nous transformons
                 vos espaces pour les rendre plus confortables, fonctionnels et lumineux.
               </p>
 
