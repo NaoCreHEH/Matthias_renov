@@ -17,7 +17,7 @@ export default function Home() {
   image: "https://rommelaere-renov.be/EDES.webp",
   telephone: "+32472654873",
   description:
-    "Entreprise de rénovation intérieure spécialisée en gyproc, plafonnage, isolation et aménagement de combles dans la région de Mons, Dour et Quévy.",
+    "Entreprise de rénovation intérieure spécialisée en gyproc, plafonnage, isolation et aménagement de combles dans la région de Mons, Dour, Quévy mais aussi dans le reste du Hainaut.",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Quévy",
@@ -32,6 +32,8 @@ export default function Home() {
     "Frameries",
     "Quaregnon",
     "Colfontaine",
+    "hainaut", 
+    "Belgique"
   ],
   sameAs: [
     "https://www.facebook.com/people/Rommelaere-Renov/100064883967078/",
@@ -53,13 +55,13 @@ export default function Home() {
     <>
       <Helmet>
         <title>
-          Rénovation intérieure à Mons – Gyproc, plafonnage & isolation | Rommelaere Rénov
+          Rénovation intérieure en Belgique – Gyproc, plafonnage & isolation | Rommelaere Rénov
         </title>
         <link rel="canonical" href="https://rommelaere-renov.be" />
 
         <meta
           name="description"
-          content="Rommelaere Rénov est une entreprise de rénovation intérieure spécialisée en gyproc, plafonnage, enduits et isolation dans la région de Mons, Dour et Quévy. Travail soigné, devis gratuit et suivi de chantier professionnel."
+          content="Rommelaere Rénov est une entreprise de rénovation intérieure spécialisée en gyproc, plafonnage, enduits et isolation dans tout le Hainaut. Travail soigné, devis gratuit et suivi de chantier professionnel."
         />
 
         {/* Open Graph (Facebook, Messenger, WhatsApp) */}
@@ -75,7 +77,7 @@ export default function Home() {
         {/* Mots-clés (SEO old-school mais encore utile dans ta niche locale) */}
         <meta
           name="keywords"
-          content="rénovation Mons, rénovation intérieure Mons, gyproc Mons, plafonnage Mons, isolation Mons, rénovation Dour, rénovation Quévy, pose de gyproc Mons, plafonneur Mons"
+          content="rénovation Mons, rénovation intérieure Mons, gyproc Mons, plafonnage Mons, isolation Mons, rénovation Dour, rénovation Quévy, pose de gyproc Mons, plafonneur Mons, Gyproc Hainaut"
         />
 
         {/* Langue */}
@@ -215,8 +217,7 @@ export default function Home() {
             Zones d&apos;intervention
           </h2>
           <p className="text-center text-foreground/80 mb-4">
-            Nous intervenons principalement dans la région de Mons, Dour, Quévy et les communes
-            avoisinantes. Si vous habitez dans le Borinage ou aux alentours de Mons, n&apos;hésitez pas à
+            Nous intervenons principalement dans le Hainaut et les communes avoisinantes. Si vous habitez dans les environs, n&apos;hésitez pas à
             nous contacter pour vérifier si nous pouvons nous déplacer chez vous.
           </p>
           <p className="text-center text-foreground/80">
@@ -296,7 +297,7 @@ export default function Home() {
 
               <p className="text-xs opacity-90 mt-1">
                 Entreprise de rénovation intérieure spécialisée en gyproc, plafonnage et isolation – 
-                active à Mons, Dour et Quévy.
+                active à Mons, Quévy et dans tous le Hainaut.
               </p>
 
               {/* 👉 NOUVEAU LIEN SEO */}
@@ -305,7 +306,7 @@ export default function Home() {
                   href="/zones-intervention-renovation-mons"
                   className="underline hover:text-accent"
                 >
-                  Zones d’intervention : Mons, Dour, Quévy & Borinage
+                  Zones d’intervention : Mons, Dour, Quévy & tous le Hainaut
                 </Link>
               </p>
             </div>
