@@ -15,6 +15,7 @@ import AdminServices from "./pages/admin/AdminServices";
 import AdminProjects from "./pages/admin/AdminProjects";
 import AdminContact from "./pages/admin/AdminContact";
 import AdminTestimonials from "./pages/admin/AdminTestimonials";
+import InitAdmin from "./pages/admin/InitAdmin";
 import Testimonials from "./pages/Testimonials";
 import Login from "./pages/Login";
 import GyprocMons from "./pages/GyprocMons";
@@ -43,6 +44,7 @@ function Router() {
       <Route path={"/testimonials"} component={Testimonials} />
       <Route path={"/zones-intervention-renovation-mons"}  component={ZonesIntervention}/>
       <Route path={"/login"} component={Login} />
+      <Route path={"/init-admin"} component={InitAdmin} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

@@ -15,6 +15,8 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  
+  const loginMutation = trpc.auth.login.useMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,24 +29,15 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      // Utiliser une procédure tRPC pour l'authentification
-      // Note: Cette procédure n'existe pas encore dans routers.ts, mais elle est nécessaire pour une connexion réelle.
-      // Je vais simuler l'appel pour l'instant, mais il faudra l'implémenter côté serveur.
-      // Si l'authentification est gérée par un service externe (comme Manus OAuth), cette logique doit être adaptée.
-
-      // Pour l'instant, je vais conserver la simulation pour ne pas casser le build,
-      // mais je vais ajouter un commentaire pour indiquer qu'une procédure tRPC est nécessaire.
-      
-      // Temporairement commenté - la procédure login n'existe pas encore
-      // await trpc.auth.login.mutate({ email, password });
-      // Pour l'instant, redirection directe
-      toast.warning("Authentification à implémenter côté serveur");
+      // Authentification via la procédure tRPC
+      await loginMutation.mutateAsync({ email, password });
       refresh(); // Re-fetch user data to update authentication state
-      setLocation("/admin");
       toast.success("Connexion réussie !");
-    } catch (error) {
+      setLocation("/admin");
+    } catch (error: any) {
+      toast.error(error?.message || "Email ou mot de passe incorrect");
+    } finally {
       setIsLoading(false);
-      toast.error("Erreur lors de la connexion");
     }
   };
 

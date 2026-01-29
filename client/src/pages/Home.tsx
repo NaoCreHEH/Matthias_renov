@@ -312,14 +312,22 @@ export default function Home() {
             </div>
 
             {/* Bloc droit */}
-            <a
-              href="https://www.facebook.com/people/Rommelaere-Renov/100064883967078/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-accent transition"
-            >
-              Suivez-nous sur Facebook
-            </a>
+            <div className="flex flex-col items-center md:items-end gap-2">
+              <a
+                href="https://www.facebook.com/people/Rommelaere-Renov/100064883967078/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent transition"
+              >
+                Suivez-nous sur Facebook
+              </a>
+              <Link
+                href="/admin"
+                className="text-xs opacity-50 hover:opacity-100 transition"
+              >
+                Administration
+              </Link>
+            </div>
 
           </div>
         </footer>
