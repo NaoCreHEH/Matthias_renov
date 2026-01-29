@@ -350,21 +350,3 @@ export async function deleteTestimonial(id: number) {
   if (!db) throw new Error("Database not available");
   return db.delete(testimonials).where(eq(testimonials.id, id));
 }
-
-export async function getAllTestimonials() {
-  const db = await getDb();
-  if (!db) return [];
-  return db.select().from(testimonials).orderBy(desc(testimonials.createdAt));
-}
-
-export async function updateTestimonial(id: number, data: Partial<InsertTestimonial>) {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  return db.update(testimonials).set(data).where(eq(testimonials.id, id));
-}
-
-export async function updateProjectImageOrder(imageId: number, newOrder: number) {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  return db.update(projectImages).set({ order: newOrder }).where(eq(projectImages.id, imageId));
-}

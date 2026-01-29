@@ -6,8 +6,6 @@ import { z } from "zod";
 import * as db from "./db";
 import { COOKIE_NAME } from "@shared/const";
 import { TRPCError } from "@trpc/server";
-import { storagePut } from "./storage";
-import { nanoid } from "nanoid";
 
 // Middleware pour vérifier si l'utilisateur est admin
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -64,12 +62,6 @@ export const appRouter = router({
       return db.deleteProject(input);
     }),
     getProjectImages: publicProcedure.input(z.number()).query(({ input }) => db.getProjectImages(input)),
-    updateProjectImageOrder: protectedProcedure
-      .input(z.object({ imageId: z.number(), newOrder: z.number() }))
-      .mutation(({ input, ctx }) => {
-        if (ctx.user?.role !== "admin") throw new Error("Unauthorized");
-        return db.updateProjectImageOrder(input.imageId, input.newOrder);
-      }),
     createProjectImage: protectedProcedure
       .input(z.object({ projectId: z.number(), imageUrl: z.string(), order: z.number().optional() }))
       .mutation(({ input, ctx }) => {
@@ -80,20 +72,6 @@ export const appRouter = router({
       if (ctx.user?.role !== "admin") throw new Error("Unauthorized");
       return db.deleteProjectImage(input);
     }),
-    getAllTestimonials: adminProcedure.query(() => db.getAllTestimonials()),
-    updateTestimonial: adminProcedure
-      .input(z.object({ 
-        id: z.number(), 
-        name: z.string().optional(),
-        title: z.string().optional(),
-        projectType: z.string().optional(),
-        rating: z.number().min(1).max(5).optional(),
-        testimonial: z.string().optional()
-      }))
-      .mutation(({ input }) => {
-        const { id, ...data } = input;
-        return db.updateTestimonial(id, data);
-      }),
     getContactInfo: publicProcedure.query(() => db.getContactInfo()),
     updateContactInfo: protectedProcedure
       .input(z.object({ phone: z.string().optional(), email: z.string().optional(), address: z.string().optional() }))
@@ -125,48 +103,6 @@ export const appRouter = router({
     approve: adminProcedure.input(z.number()).mutation(({ input }) => db.approveTestimonial(input)),
     reject: adminProcedure.input(z.number()).mutation(({ input }) => db.rejectTestimonial(input)),
     delete: adminProcedure.input(z.number()).mutation(({ input }) => db.deleteTestimonial(input)),
-  }),
-
-  // Routeur Upload
-  upload: router({
-    uploadImage: adminProcedure
-      .input(z.object({ 
-        base64Data: z.string(), 
-        fileName: z.string(),
-        contentType: z.string().optional()
-      }))
-      .mutation(async ({ input }) => {
-        try {
-          // Extraire les données base64
-          const base64Match = input.base64Data.match(/^data:([^;]+);base64,(.+)$/);
-          if (!base64Match) {
-            throw new Error("Format base64 invalide");
-          }
-          
-          const contentType = input.contentType || base64Match[1] || "image/jpeg";
-          const base64Content = base64Match[2];
-          const buffer = Buffer.from(base64Content, "base64");
-          
-          // Générer un nom de fichier unique
-          const ext = input.fileName.split(".").pop() || "jpg";
-          const uniqueFileName = `projects/${nanoid()}.${ext}`;
-          
-          // Upload vers le stockage
-          const result = await storagePut(uniqueFileName, buffer, contentType);
-          
-          return {
-            success: true,
-            url: result.url,
-            key: result.key,
-          };
-        } catch (error) {
-          console.error("Erreur lors de l'upload:", error);
-          throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-            message: "Erreur lors de l'upload de l'image",
-          });
-        }
-      }),
   }),
 
   // Routeur Admin

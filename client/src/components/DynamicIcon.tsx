@@ -15,10 +15,10 @@ export const DynamicIcon = ({ name, ...props }: DynamicIconProps) => {
   // On vérifie si le nom existe dans la liste des icônes Lucide
   const IconComponent = LucideIcons[name as keyof typeof LucideIcons];
 
-  if (!IconComponent) {
+  if (!IconComponent || typeof IconComponent !== 'function') {
     // Retourne null si ce n'est pas une icône Lucide (ce sera un emoji ou une autre chaîne)
     return null; 
   }
 
-  return createElement(IconComponent, { ...props });
+  return createElement(IconComponent as React.ComponentType<LucideIcons.LucideProps>, { ...props });
 };
