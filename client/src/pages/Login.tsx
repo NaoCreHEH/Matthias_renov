@@ -21,6 +21,9 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Protection contre le double clic
+    if (isLoading) return;
+    
     if (!email || !password) {
       toast.error("Veuillez remplir tous les champs");
       return;

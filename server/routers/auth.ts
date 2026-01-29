@@ -83,4 +83,56 @@ export const authRouter = router({
       success: true,
     } as const;
   }),
+
+  createAdmin: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email(),
+        password: z.string().min(8),
+        name: z.string().min(1),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      // 1. Vérifier si l'utilisateur existe déjà
+      const existingUser = await db.getUserByEmail(input.email);
+      if (existingUser) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "Un utilisateur avec cet email existe déjà",
+        });
+      }
+
+      // 2. Hacher le mot de passe
+      const hashedPassword = await hashPassword(input.password);
+      const openId = `local-login-${input.email}`;
+
+      // 3. Créer l'utilisateur en base de données
+      await db.upsertUser({
+        openId: openId,
+        email: input.email,
+        name: input.name,
+        role: "admin",
+        loginMethod: "local",
+        passwordHash: hashedPassword,
+      });
+
+      // 4. Récupérer l'utilisateur créé
+      const user = await db.getUserByEmail(input.email);
+      if (!user) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Erreur lors de la création de l'utilisateur",
+        });
+      }
+
+      // 5. Créer le token de session et connecter automatiquement
+      const sessionToken = await sdk.createSessionToken(user.openId, {
+        name: user.name || "Admin",
+      });
+
+      const cookieOptions = getSessionCookieOptions(ctx.req);
+      ctx.res.cookie(COOKIE_NAME, sessionToken, cookieOptions);
+
+      return { success: true };
+    }),
 });

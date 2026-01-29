@@ -16,10 +16,13 @@ export default function InitAdmin() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const loginMutation = trpc.auth.login.useMutation();
+  const createAdminMutation = trpc.auth.createAdmin.useMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Protection contre le double clic
+    if (isLoading) return;
 
     // Validations
     if (!email || !password || !confirmPassword || !name) {
@@ -40,9 +43,8 @@ export default function InitAdmin() {
     setIsLoading(true);
 
     try {
-      // Tenter de se connecter avec les identifiants fournis
-      // Si le compte n'existe pas et que c'est l'email admin, il sera créé automatiquement
-      await loginMutation.mutateAsync({ email, password });
+      // Créer le compte administrateur
+      await createAdminMutation.mutateAsync({ email, password, name });
       toast.success("Compte administrateur créé et connecté avec succès !");
       setLocation("/admin");
     } catch (error: any) {
